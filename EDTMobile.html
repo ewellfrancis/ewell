@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ewell Delivery Team</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #1e40ff, rgb(0, 0, 0));
+      color: #ffffff;
+      min-height: 100vh;
+      cursor: url('https://www.cur.su/cursors/hand2.cur'), auto;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      padding: 2rem 1rem 1rem 1rem; /* Increased top padding */
+      border-bottom: 5px solid #1e90ff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+      animation: fadeIn 2s forwards;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+      animation: fadeIn 2s 1s forwards;
+    }
+
+    .cart-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #1e90ff;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: triangle;
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+      z-index: 2;
+    }
+
+    .cart-btn i {
+      margin-right: 8px;
+    }
+
+    .content {
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .card {
+      background: #333;
+      padding: 1.2rem;
+      margin: 1rem 0;
+      border-radius: 12px;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 1rem;
+      color: #f1f1f1;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin-top: 0.3rem;
+      border: 2px solid #1e90ff;
+      border-radius: 8px;
+      background: #000000;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    .btn {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .btn:hover {
+      background-color: #218838;
+      transform: scale(1.05);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #ccc;
+      padding: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .cart-btn {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+      }
+
+      input, select, textarea, .btn {
+        font-size: 1rem;
+        padding: 0.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Ewell Delivery Team</h1>
+    <p>Fast. Reliable. Local.</p>
+    <div class="cart-btn" onclick="checkCart()">
+      <i class="fas fa-shopping-cart"></i> Check Your Cart
+    </div>
+  </header>
+
+  <div class="content">
+    <div class="card">
+      <h2>Schedule a Delivery</h2>
+      <form id="deliveryForm">
+        <div class="form-group">
+          <label for="customerName">Customer Name</label>
+          <input type="text" id="customerName" placeholder="Enter your name" required />
+        </div>
+        <div class="form-group">
+          <label for="customerAddress">Customer Address</label>
+          <textarea id="customerAddress" rows="3" placeholder="Enter your delivery address" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Enter your email" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="Enter your phone number" required />
+        </div>
+        <div class="form-group">
+          <label for="itemSelect">Item for Delivery</label>
+          <input type="text" id="itemSelect" list="itemOptions" placeholder="Enter/Choose your item" required />
+          <datalist id="itemOptions">
+            <option value="Package">
+            <option value="Furniture">
+            <option value="Groceries">
+            <option value="Electronics">
+          </datalist>
+        </div>
+        <button type="button" class="btn" onclick="addToCart()">Add to Cart</button>
+        <button type="submit" class="btn">Schedule Delivery</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Track Your Package</h2>
+      <p>Enter your tracking number below:</p>
+      <input type="text" id="trackingNumber" placeholder="Tracking Number" />
+      <button class="btn" onclick="trackPackage()">Track</button>
+      <p id="trackResult"></p>
+    </div>
+  </div>
+
+  <p class="footer">&copy; 2025 Ewell Delivery Team | All Rights Reserved</p>
+
+  <script>
+    function getItemPrice(itemName) {
+      const prices = {
+        "Package": 4.99,
+        "Furniture": 24.99,
+        "Groceries": 14.49,
+        "Electronics": 59.99
+      };
+      return prices[itemName] || 9.99;
+    }
+
+    function addToCart() {
+      const itemName = document.getElementById('itemSelect').value;
+      if (!itemName) {
+        alert('Please select an item before adding to cart.');
+        return;
+      }
+
+      const itemPrice = getItemPrice(itemName);
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push({ name: itemName, price: itemPrice });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`Added "${itemName}" to your cart for $${itemPrice.toFixed(2)}.`);
+    }
+
+    function checkCart() {
+      window.location.href = 'cart.html';
+    }
+
+    function trackPackage() {
+      const trackingNumber = document.getElementById('trackingNumber').value;
+      const result = document.getElementById('trackResult');
+      if (trackingNumber.trim() !== '') {
+        result.textContent = `Tracking info for #${trackingNumber}: In Transit.`;
+      } else {
+        result.textContent = 'Please enter a tracking number.';
+      }
+    }
+
+    document.getElementById('deliveryForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const name = document.getElementById('customerName').value;
+      const address = document.getElementById('customerAddress').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const item = document.getElementById('itemSelect').value;
+
+      if (name && address && email && phone && item) {
+        alert(`Delivery Scheduled!\n\nName: ${name}\nAddress: ${address}\nEmail: ${email}\nPhone: ${phone}\nItem: ${item}`);
+      } else {
+        alert('Please fill in all the fields.');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -20,7 +20,7 @@
     header {
       background: rgba(0, 0, 0, 0.8);
       color: #fff;
-      padding: 2rem 1rem 1rem 1rem; /* Increased top padding */
+      padding: 2rem 1rem 1rem 1rem;
       border-bottom: 5px solid #1e90ff;
       display: flex;
       flex-direction: column;
@@ -49,7 +49,7 @@
       color: white;
       padding: 10px 20px;
       border-radius: 5px;
-      cursor: triangle;
+      cursor: pointer;
       display: flex;
       align-items: center;
       font-size: 1rem;
@@ -222,17 +222,23 @@
     }
 
     function trackPackage() {
-      const trackingNumber = document.getElementById('trackingNumber').value;
+      const trackingNumber = document.getElementById('trackingNumber').value.trim();
       const result = document.getElementById('trackResult');
-      if (trackingNumber.trim() !== '') {
+      const lastTracking = localStorage.getItem('lastTrackingNumber');
+
+      if (trackingNumber === '') {
+        result.textContent = 'Please enter a tracking number.';
+      } else if (trackingNumber === lastTracking) {
         result.textContent = `Tracking info for #${trackingNumber}: In Transit.`;
       } else {
-        result.textContent = 'Please enter a tracking number.';
+        result.textContent = `No tracking info found for #${trackingNumber}.`;
       }
     }
 
+    // Updated submit handler with tracking number
     document.getElementById('deliveryForm').addEventListener('submit', function(event) {
       event.preventDefault();
+
       const name = document.getElementById('customerName').value;
       const address = document.getElementById('customerAddress').value;
       const email = document.getElementById('email').value;
@@ -240,7 +246,16 @@
       const item = document.getElementById('itemSelect').value;
 
       if (name && address && email && phone && item) {
-        alert(`Delivery Scheduled!\n\nName: ${name}\nAddress: ${address}\nEmail: ${email}\nPhone: ${phone}\nItem: ${item}`);
+        const trackingNumber = Math.floor(100000 + Math.random() * 900000); // 6-digit number
+
+        alert(
+          `✅ Delivery Scheduled!\n\n` +
+          `👤 Name: ${name}\n🏠 Address: ${address}\n📧 Email: ${email}\n📞 Phone: ${phone}\n📦 Item: ${item}\n\n` +
+          `🧾 Your Tracking Number is: ${trackingNumber}`
+        );
+
+        localStorage.setItem('lastTrackingNumber', trackingNumber); // save to localStorage
+        document.getElementById('deliveryForm').reset(); // clear form
       } else {
         alert('Please fill in all the fields.');
       }

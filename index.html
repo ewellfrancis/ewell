@@ -192,59 +192,24 @@
 
   <p class="footer">&copy; 2025 Ewell Delivery Team | All Rights Reserved</p>
 
-  <script>
-    function getItemPrice(itemName) {
-      const prices = {
-        "Package": 4.99,
-        "Furniture": 24.99,
-        "Groceries": 14.49,
-        "Electronics": 59.99
-      };
-      return prices[itemName] || 9.99;
+<script>
+  document.getElementById('deliveryForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const name = document.getElementById('customerName').value;
+    const address = document.getElementById('customerAddress').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const item = document.getElementById('itemSelect').value;
+
+    // Check if all fields are filled
+    if (name && address && email && phone && item) {
+      const trackingNumber = Math.floor(100000 + Math.random() * 900000);
+      alert(`✅ Delivery Scheduled!\n\nTracking Number: ${trackingNumber}`);
+    } else {
+      alert('Please fill in all the fields.');
     }
-
-    function addToCart() {
-      const itemName = document.getElementById('itemSelect').value;
-      if (!itemName) {
-        alert('Please select an item before adding to cart.');
-        return;
-      }
-
-      const itemPrice = getItemPrice(itemName);
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
-      cart.push({ name: itemName, price: itemPrice });
-      localStorage.setItem('cart', JSON.stringify(cart));
-      alert(`Added "${itemName}" to your cart for $${itemPrice.toFixed(2)}.`);
-    }
-
-    function checkCart() {
-      window.location.href = 'cart.html';
-    }
-
-    function trackPackage() {
-      const trackingNumber = document.getElementById('trackingNumber').value;
-      const result = document.getElementById('trackResult');
-      if (trackingNumber.trim() !== '') {
-        result.textContent = `Tracking info for #${trackingNumber}: In Transit.`;
-      } else {
-        result.textContent = 'Please enter a tracking number.';
-      }
-    }
-
-    document.getElementById('deliveryForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const name = document.getElementById('customerName').value;
-      const address = document.getElementById('customerAddress').value;
-      const email = document.getElementById('email').value;
-      const phone = document.getElementById('phone').value;
-      const item = document.getElementById('itemSelect').value;
-
-      if (name && address && email && phone && item) {
-        alert(`Delivery Scheduled!\n\nName: ${name}\nAddress: ${address}\nEmail: ${email}\nPhone: ${phone}\nItem: ${item}`);
-      } else {
-        alert('Please fill in all the fields.');
-      }
-    });
-  </script>
+  });
+</script>
 </body>
 </html>

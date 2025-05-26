@@ -2,179 +2,139 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ewell Delivery Team (Legacy)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ewell Delivery Team</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     body {
       font-family: 'Orbitron', sans-serif;
       margin: 0;
       padding: 0;
-      background: linear-gradient(to bottom right, #1e40ff, rgb(0, 0, 0));
-      color: #ffffff;
-      height: 100vh;
-      cursor: url('https://www.cur.su/cursors/hand2.cur'), auto;
-      transition: background 0.3s ease;
+      background: linear-gradient(to bottom right, #1e40ff, #000);
+      color: #fff;
+      min-height: 100vh;
     }
 
     header {
       background: rgba(0, 0, 0, 0.8);
-      color: #fff;
-      padding: 1rem;
+      padding: 2rem 1rem 1rem 1rem;
+      border-bottom: 5px solid #1e90ff;
       text-align: center;
-      border-bottom: 5px solid #1e40ff;
-      transition: background 0.3s ease;
-      position: relative;
-      z-index: 1;
     }
 
     h1 {
-      font-size: 3rem;
-      letter-spacing: 3px;
+      font-size: 2.1rem;
       text-transform: uppercase;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-      opacity: 0;
-      transform: rotateY(90deg);
-      animation: fadeIn 2s forwards;
-    }
-
-    p {
-      font-size: 1.2rem;
-      margin-top: 0.5rem;
-      opacity: 0;
-      animation: fadeIn 2s 1s forwards;
-    }
-
-    @keyframes fadeIn {
-      0% {
-        opacity: 0;
-        transform: rotateY(90deg);
-      }
-      100% {
-        opacity: 1;
-        transform: rotateY(0);
-      }
     }
 
     .content {
-      padding: 2rem;
+      padding: 1.5rem;
       text-align: center;
-      transition: padding 0.3s ease;
-      opacity: 0;
-      animation: fadeInContent 2s 2s forwards;
-    }
-
-    @keyframes fadeInContent {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
 
     .card {
-      background: #333;
+      background: #222;
       padding: 1.5rem;
-      margin: 1rem 0;
+      margin: 1.5rem auto;
+      max-width: device-width;
       border-radius: 12px;
       box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      opacity: 0;
-      animation: fadeIn 1s ease-in-out forwards;
-    }
-
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.7);
     }
 
     .form-group {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
+      text-align: left;
     }
 
     label {
       font-weight: bold;
-      font-size: 1rem;
       color: #f1f1f1;
     }
 
-    input, select, textarea {
-      width: 96%;
+    input, textarea {
+      width: 98.1%;
       padding: 0.8rem;
       margin-top: 0.3rem;
       border: 2px solid #1e90ff;
       border-radius: 8px;
-      background: #000000;
+      background: #000;
       color: #fff;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: #ffcc00;
-      background: #333;
     }
 
     .btn {
-      background: #1e40ff;
+      background: #28a745;
       color: white;
       border: none;
       padding: 1rem;
       border-radius: 8px;
       cursor: pointer;
       width: 100%;
-      font-size: 1.2rem;
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      font-size: 1.1rem;
+      margin-top: 1rem;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.6);
     }
 
     .btn:hover {
+      transform: scale(1.05);
+      background-color: #218838;
+    }
+
+    .btn-bottom-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+      gap: 10px;
+    }
+
+    .btn-edt-comix,
+    .btn-check-cart {
+      background-color: #28a745;
+      color: white;
+      font-size: 1rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      flex: 1;
+      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.6);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-edt-comix:hover,
+    .btn-check-cart:hover {
       background-color: #218838;
       transform: scale(1.05);
     }
 
-    .btn:active {
-      background-color: #006400;
-      transform: scale(0.98);
-    }
-
     .footer {
       text-align: center;
-      margin-top: 3rem;
       font-size: 0.9rem;
       color: #ccc;
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      padding: 1rem;
+      padding: 1.5rem;
     }
 
-    .cart-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: #1e90ff;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      font-size: 1rem;
-    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
 
-    .cart-btn i {
-      margin-right: 8px;
-    }
+      .btn {
+        font-size: 1rem;
+        padding: 0.8rem;
+      }
 
-    @media (min-width: 600px) {
-      .card {
-        max-width: 600px;
-        margin: 2rem auto;
+      .btn-edt-comix,
+      .btn-check-cart {
+        font-size: 1rem;
+        padding: 0.8rem;
+        flex: 1;
       }
     }
   </style>
@@ -183,9 +143,6 @@
   <header>
     <h1>Ewell Delivery Team</h1>
     <p>Fast. Reliable. Local.</p>
-    <div class="cart-btn" onclick="checkCart()">
-      <i class="fas fa-shopping-cart"></i> Check Your Cart
-    </div>
   </header>
 
   <div class="content">
@@ -197,7 +154,7 @@
           <input type="text" id="customerName" placeholder="Enter your name" required />
         </div>
         <div class="form-group">
-          <label for="customerAddress">Customer Address</label>
+          <label for="customerAddress">Address</label>
           <textarea id="customerAddress" rows="3" placeholder="Enter your delivery address" required></textarea>
         </div>
         <div class="form-group">
@@ -218,30 +175,30 @@
             <option value="Electronics">
           </datalist>
         </div>
-        <button type="button" class="btn" onclick="addToCart()">Add to Cart</button><br /><br />
-        <button type="submit" class="btn">Schedule Delivery</button>
+
+        <button type="button" class="btn" id="scheduleButton"><i class="fas fa-box"></i>&nbsp;Schedule Delivery</button>
+        <button type="button" class="btn" onclick="addToCart()"><i class="fas fa-cart-plus"></i>&nbsp;Add to Cart</button>
+
+        <div class="btn-bottom-container">
+          <a href="EDTcomix.html" class="btn-edt-comix"><i class="fas fa-book-open"></i>&nbsp;EDT Comix</a>
+          <a href="cart.html" class="btn-check-cart"><i class="fas fa-shopping-cart"></i>&nbsp;Check Cart</a>
+        </div>
       </form>
     </div>
 
     <div class="card">
       <h2>Track Your Package</h2>
       <p>Enter your tracking number below:</p>
-      <input type="text" id="trackingNumber" placeholder="Tracking Number" /><br /><br />
-      <button class="btn" onclick="trackPackage()">Track</button>
+      <input type="text" id="trackingNumber" placeholder="Tracking Number" />
+      <button class="btn" onclick="trackPackage()"><i class="fas fa-map-marker-alt"></i>&nbsp;Track</button>
       <p id="trackResult"></p>
     </div>
   </div>
 
-<p>&copy; 2025 Ewell Delivery Team | All Rights Reserved</p>
+  <p class="footer">&copy; 2025 Ewell Delivery Team | All Rights Reserved</p>
 
   <script>
-    const clickSound = new Audio('click-sound.mp3');
-    document.querySelectorAll('.btn').forEach(button => {
-      button.addEventListener('click', () => clickSound.play());
-    });
-
-    document.getElementById('deliveryForm').addEventListener('submit', function(event) {
-      event.preventDefault();
+    document.getElementById('scheduleButton').addEventListener('click', function () {
       const name = document.getElementById('customerName').value;
       const address = document.getElementById('customerAddress').value;
       const email = document.getElementById('email').value;
@@ -249,37 +206,37 @@
       const item = document.getElementById('itemSelect').value;
 
       if (name && address && email && phone && item) {
-        alert(`Delivery Scheduled!\n\nName: ${name}\nAddress: ${address}\nEmail: ${email}\nPhone: ${phone}\nItem: ${item}`);
+        const trackingNumber = Math.floor(10000 + Math.random() * 90000);
+        alert(`Thank you for scheduling your delivery, ${name}!\nTracking Number: ${trackingNumber}`);
+        document.getElementById('trackingNumber').value = trackingNumber;
       } else {
-        alert('Please fill in all the fields.');
+        alert('Please fill in all fields!');
       }
     });
 
     function addToCart() {
-      const item = document.getElementById('itemSelect').value;
-      if (!item) {
-        alert('Please select an item before adding to cart.');
-        return;
-      }
-
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
-      cart.push(item);
-      localStorage.setItem('cart', JSON.stringify(cart));
-      alert(`Added "${item}" to your cart.`);
+      alert('This feature has been removed temporarily.');
     }
 
     function trackPackage() {
-      const trackingNumber = document.getElementById('trackingNumber').value;
+      const trackingNumber = document.getElementById('trackingNumber').value.trim();
       const result = document.getElementById('trackResult');
-      if (trackingNumber.trim() !== '') {
-        result.textContent = `Tracking info for #${trackingNumber}: In Transit.`;
-      } else {
-        result.textContent = 'Please enter a tracking number.';
-      }
-    }
 
-    function checkCart() {
-      window.location.href = 'file:///Users/ewellmanalo/Desktop/panomidocuments/cart.html';
+      if (trackingNumber === '34404') {
+        document.body.innerHTML = '<div style="background:black;color:lime;font-size:2rem;text-align:center;margin-top:40vh;animation:flicker 0.1s infinite;">Glitch Transmission...</div>';
+        setTimeout(() => {
+          window.location.href = 'horror.html/horror.html';
+        }, 2000);
+        return;
+      }
+
+      if (trackingNumber === '') {
+        result.textContent = 'Please enter a tracking number.';
+      } else if (!/^\d{5}$/.test(trackingNumber)) {
+        result.textContent = 'Tracking number must be exactly 5 digits.';
+      } else {
+        result.innerHTML = `Tracking info for #${trackingNumber}: <strong>Order Received</strong>`;
+      }
     }
   </script>
 </body>

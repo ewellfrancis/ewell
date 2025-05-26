@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ewell Delivery Team</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ewell Delivery Team (Legacy)</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
@@ -13,69 +13,87 @@
       padding: 0;
       background: linear-gradient(to bottom right, #1e40ff, rgb(0, 0, 0));
       color: #ffffff;
-      min-height: 100vh;
+      height: 100vh;
       cursor: url('https://www.cur.su/cursors/hand2.cur'), auto;
+      transition: background 0.3s ease;
     }
 
     header {
       background: rgba(0, 0, 0, 0.8);
       color: #fff;
-      padding: 2rem 1rem 1rem 1rem; /* Increased top padding */
-      border-bottom: 5px solid #1e90ff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      padding: 1rem;
+      text-align: center;
+      border-bottom: 5px solid #1e40ff;
+      transition: background 0.3s ease;
       position: relative;
+      z-index: 1;
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 3rem;
+      letter-spacing: 3px;
       text-transform: uppercase;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      transform: rotateY(90deg);
       animation: fadeIn 2s forwards;
     }
 
     p {
       font-size: 1.2rem;
       margin-top: 0.5rem;
+      opacity: 0;
       animation: fadeIn 2s 1s forwards;
     }
 
-    .cart-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: #1e90ff;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: triangle;
-      display: flex;
-      align-items: center;
-      font-size: 1rem;
-      z-index: 2;
-    }
-
-    .cart-btn i {
-      margin-right: 8px;
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: rotateY(90deg);
+      }
+      100% {
+        opacity: 1;
+        transform: rotateY(0);
+      }
     }
 
     .content {
-      padding: 1.5rem;
+      padding: 2rem;
       text-align: center;
+      transition: padding 0.3s ease;
+      opacity: 0;
+      animation: fadeInContent 2s 2s forwards;
+    }
+
+    @keyframes fadeInContent {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .card {
       background: #333;
-      padding: 1.2rem;
+      padding: 1.5rem;
       margin: 1rem 0;
       border-radius: 12px;
       box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.7);
     }
 
     .form-group {
-      margin-bottom: 1rem;
-      text-align: left;
+      margin-bottom: 1.5rem;
     }
 
     label {
@@ -85,7 +103,7 @@
     }
 
     input, select, textarea {
-      width: 100%;
+      width: 96%;
       padding: 0.8rem;
       margin-top: 0.3rem;
       border: 2px solid #1e90ff;
@@ -93,10 +111,17 @@
       background: #000000;
       color: #fff;
       font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #ffcc00;
+      background: #333;
     }
 
     .btn {
-      background: #28a745;
+      background: #1e40ff;
       color: white;
       border: none;
       padding: 1rem;
@@ -104,7 +129,7 @@
       cursor: pointer;
       width: 100%;
       font-size: 1.2rem;
-      margin-top: 1rem;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
     .btn:hover {
@@ -112,27 +137,44 @@
       transform: scale(1.05);
     }
 
+    .btn:active {
+      background-color: #006400;
+      transform: scale(0.98);
+    }
+
     .footer {
       text-align: center;
-      margin-top: 2rem;
+      margin-top: 3rem;
       font-size: 0.9rem;
       color: #ccc;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
       padding: 1rem;
     }
 
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
-      }
+    .cart-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #1e90ff;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+    }
 
-      .cart-btn {
-        font-size: 0.9rem;
-        padding: 8px 12px;
-      }
+    .cart-btn i {
+      margin-right: 8px;
+    }
 
-      input, select, textarea, .btn {
-        font-size: 1rem;
-        padding: 0.7rem;
+    @media (min-width: 600px) {
+      .card {
+        max-width: 600px;
+        margin: 2rem auto;
       }
     }
   </style>
@@ -176,7 +218,7 @@
             <option value="Electronics">
           </datalist>
         </div>
-        <button type="button" class="btn" onclick="addToCart()">Add to Cart</button>
+        <button type="button" class="btn" onclick="addToCart()">Add to Cart</button><br /><br />
         <button type="submit" class="btn">Schedule Delivery</button>
       </form>
     </div>
@@ -184,52 +226,19 @@
     <div class="card">
       <h2>Track Your Package</h2>
       <p>Enter your tracking number below:</p>
-      <input type="text" id="trackingNumber" placeholder="Tracking Number" />
+      <input type="text" id="trackingNumber" placeholder="Tracking Number" /><br /><br />
       <button class="btn" onclick="trackPackage()">Track</button>
       <p id="trackResult"></p>
     </div>
   </div>
 
-  <p class="footer">&copy; 2025 Ewell Delivery Team | All Rights Reserved</p>
+<p>&copy; 2025 Ewell Delivery Team | All Rights Reserved</p>
 
   <script>
-    function getItemPrice(itemName) {
-      const prices = {
-        "Package": 4.99,
-        "Furniture": 24.99,
-        "Groceries": 14.49,
-        "Electronics": 59.99
-      };
-      return prices[itemName] || 9.99;
-    }
-
-    function addToCart() {
-      const itemName = document.getElementById('itemSelect').value;
-      if (!itemName) {
-        alert('Please select an item before adding to cart.');
-        return;
-      }
-
-      const itemPrice = getItemPrice(itemName);
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
-      cart.push({ name: itemName, price: itemPrice });
-      localStorage.setItem('cart', JSON.stringify(cart));
-      alert(`Added "${itemName}" to your cart for $${itemPrice.toFixed(2)}.`);
-    }
-
-    function checkCart() {
-      window.location.href = 'cart.html';
-    }
-
-    function trackPackage() {
-      const trackingNumber = document.getElementById('trackingNumber').value;
-      const result = document.getElementById('trackResult');
-      if (trackingNumber.trim() !== '') {
-        result.textContent = `Tracking info for #${trackingNumber}: In Transit.`;
-      } else {
-        result.textContent = 'Please enter a tracking number.';
-      }
-    }
+    const clickSound = new Audio('click-sound.mp3');
+    document.querySelectorAll('.btn').forEach(button => {
+      button.addEventListener('click', () => clickSound.play());
+    });
 
     document.getElementById('deliveryForm').addEventListener('submit', function(event) {
       event.preventDefault();
@@ -245,6 +254,33 @@
         alert('Please fill in all the fields.');
       }
     });
+
+    function addToCart() {
+      const item = document.getElementById('itemSelect').value;
+      if (!item) {
+        alert('Please select an item before adding to cart.');
+        return;
+      }
+
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push(item);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`Added "${item}" to your cart.`);
+    }
+
+    function trackPackage() {
+      const trackingNumber = document.getElementById('trackingNumber').value;
+      const result = document.getElementById('trackResult');
+      if (trackingNumber.trim() !== '') {
+        result.textContent = `Tracking info for #${trackingNumber}: In Transit.`;
+      } else {
+        result.textContent = 'Please enter a tracking number.';
+      }
+    }
+
+    function checkCart() {
+      window.location.href = 'file:///Users/ewellmanalo/Desktop/panomidocuments/cart.html';
+    }
   </script>
 </body>
 </html>

@@ -1,212 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Your Cart | Ewell Delivery Team</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EDT Cart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     body {
       font-family: 'Orbitron', sans-serif;
       background: linear-gradient(to bottom right, #1e40ff, #000);
       color: #fff;
-      padding: 2rem;
       margin: 0;
-      box-sizing: border-box;
-    }
-    h1 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-    .cart-container {
-      max-width: 700px;
-      margin: 2rem auto;
-      background: #222;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-    }
-    ul {
-      list-style: none;
       padding: 0;
+      min-height: 100vh;
     }
-    li {
+
+    header {
+      background-color: #000a;
+      text-align: center;
+      padding: 1rem;
+      border-bottom: 4px solid #1e90ff;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .container {
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .cart-item {
+      background-color: #111;
+      margin: 1rem 0;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,255,0,0.3);
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      background: #333;
-      border-left: 5px solid #1e90ff;
-      border-radius: 6px;
     }
-    .item-name {
-      flex: 1;
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-    }
-    .qty {
-      font-size: 1rem;
-      margin: 0.5rem 1rem;
-    }
-    .btn {
-      padding: 0.7rem 1.5rem;
-      background: #ffcc00;
-      color: #000;
-      font-weight: bold;
+
+    .cart-item button {
+      background-color: #ff4444;
       border: none;
-      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      color: white;
       cursor: pointer;
-      font-size: 1rem;
-      transition: background 0.3s ease;
-      margin: 0.5rem;
     }
-    .btn:hover {
-      background: #e6b800;
+
+    .total {
+      font-size: 1.4rem;
+      text-align: right;
+      margin-top: 1rem;
     }
-    .btn-danger {
-      background: #dc3545;
-      color: white;
-    }
-    .btn-danger:hover {
-      background: #b02a37;
-    }
-    .btn-secondary {
-      background: #17a2b8;
-      color: white;
-    }
-    .btn-secondary:hover {
-      background: #138496;
-    }
-    .empty {
-      text-align: center;
+
+    .checkout-btn, .back-btn {
+      width: 100%;
+      margin-top: 1rem;
+      padding: 1rem;
       font-size: 1.2rem;
-      color: #ccc;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: bold;
     }
-    /* Mobile responsiveness */
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 1.8rem;
-      }
-      .cart-container {
-        padding: 1rem;
-        width: 90%;
-      }
-      li {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .item-name {
-        margin-bottom: 0.5rem;
-        font-size: 1.1rem;
-      }
-      .qty {
-        margin: 0;
-      }
-      .btn {
-        width: 100%;
-        font-size: 1.2rem;
-        padding: 1rem;
-        margin-top: 1rem;
-      }
-      .btn-danger, .btn-secondary {
-        margin-top: 0.5rem;
-      }
+
+    .checkout-btn {
+      background-color: #28a745;
+      color: white;
+      box-shadow: 0 0 15px #28a745;
+    }
+
+    .checkout-btn:hover {
+      background-color: #218838;
+    }
+
+    .back-btn {
+      background-color: #007bff;
+      color: white;
+      box-shadow: 0 0 10px #007bff;
+    }
+
+    .back-btn:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
 <body>
-  <h1>Your Cart</h1>
-  <div class="cart-container">
-    <ul id="cartList"></ul>
-    <p id="emptyCartMessage" class="empty"></p>
-    <div style="text-align: center;">
-      <button class="btn btn-secondary" onclick="goBack()">← Back to Shop</button>
-      <button class="btn btn-danger" onclick="clearCart()">🗑️ Clear Cart</button>
-      <button class="btn" onclick="checkout()">✅ Checkout</button>
-    </div>
+  <header>
+    <h1>Your Cart</h1>
+  </header>
+  <div class="container">
+    <div id="cartItems"></div>
+    <div class="total" id="totalCost">Total: $0.00</div>
+    <button class="checkout-btn" onclick="checkoutCart()"><i class="fas fa-credit-card"></i> Checkout</button>
+    <button class="back-btn" onclick="window.location.href='edtmobile.html'"><i class="fas fa-arrow-left"></i> Back</button>
   </div>
 
   <script>
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    function loadCart() {
+      const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartContainer = document.getElementById('cartItems');
+      const totalCostEl = document.getElementById('totalCost');
+      cartContainer.innerHTML = '';
+      let total = 0;
 
-    // Convert item list to a quantity map
-    let itemMap = {};
-    cart.forEach(item => {
-      itemMap[item] = (itemMap[item] || 0) + 1;
-    });
-
-    const cartList = document.getElementById('cartList');
-    const emptyMessage = document.getElementById('emptyCartMessage');
-
-    function renderCart() {
-      cartList.innerHTML = '';
-      emptyMessage.textContent = '';
-
-      const items = Object.entries(itemMap);
-      if (items.length === 0) {
-        emptyMessage.textContent = "Your cart is empty.";
+      if (cartItems.length === 0) {
+        cartContainer.innerHTML = '<p>Your cart is empty.</p>';
+        totalCostEl.textContent = 'Total: $0.00';
         return;
       }
 
-      items.forEach(([item, qty]) => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-          <span class="item-name">${item}</span>
-          <span class="qty">Qty: ${qty}</span>
-          <button class="btn btn-danger" onclick="removeItem('${item}')">Remove</button>
+      cartItems.forEach((item, index) => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'cart-item';
+        itemDiv.innerHTML = `
+          <span>${item.name} - $${item.price.toFixed(2)}</span>
+          <button onclick="removeItem(${index})"><i class="fas fa-trash-alt"></i> Remove</button>
         `;
-        cartList.appendChild(li);
+        cartContainer.appendChild(itemDiv);
+        total += item.price;
       });
+
+      totalCostEl.textContent = `Total: $${total.toFixed(2)}`;
     }
 
-    function removeItem(item) {
-      if (itemMap[item]) {
-        itemMap[item]--;
-        if (itemMap[item] === 0) {
-          delete itemMap[item];
-        }
+    function removeItem(index) {
+      let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+      cartItems.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cartItems));
+      loadCart();
+    }
 
-        // Update flat cart list
-        cart = [];
-        for (let key in itemMap) {
-          for (let i = 0; i < itemMap[key]; i++) {
-            cart.push(key);
-          }
-        }
-
-        localStorage.setItem('cart', JSON.stringify(cart));
-        renderCart();
+    function checkoutCart() {
+      if (confirm('Are you sure you want to checkout?')) {
+        localStorage.removeItem('cart');
+        alert('Thank you for your purchase!');
+        loadCart();
       }
     }
 
-    function clearCart() {
-      cart = [];
-      itemMap = {};
-      localStorage.removeItem('cart');
-      renderCart();
-    }
-
-    function checkout() {
-      if (cart.length === 0) {
-        alert('Your cart is empty!');
-        return;
-      }
-
-      const items = Object.entries(itemMap)
-        .map(([item, qty]) => `- ${item} (x${qty})`)
-        .join('\n');
-
-      alert(`Thank you for your order!\n\nItems:\n${items}`);
-      clearCart();
-    }
-
-    function goBack() {
-        window.location.href = 'file:///Users/ewellmanalo/Desktop/panomidocuments/EDTMobile.html';
-      }
-
-    renderCart();
+    loadCart();
   </script>
 </body>
 </html>

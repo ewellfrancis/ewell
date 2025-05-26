@@ -230,7 +230,7 @@
         return;
       }
 
-      if (trackingNumber === '') {
+      if (trackingNumber === '') { 
         result.textContent = 'Please enter a tracking number.';
       } else if (!/^\d{5}$/.test(trackingNumber)) {
         result.textContent = 'Tracking number must be exactly 5 digits.';
